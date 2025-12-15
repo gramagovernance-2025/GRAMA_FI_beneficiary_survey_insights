@@ -1,0 +1,901 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>GRAMA Data Dashboard: Financial Inclusion</title>
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap"
+          rel="stylesheet">
+
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: #f8f9fa;
+        }
+
+        header {
+            background: #800019;
+            color: white;
+            padding: 20px 40px;
+            text-align: center;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        h2 {
+            color: #800019;
+            margin-top: 40px;
+        }
+
+        .chart-card {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .chart-card h3 {
+            text-align: center;
+            color: #800019;
+            margin-bottom: 15px;
+        }
+
+        /* TOP SINGLE KPI */
+        .scorecard {
+            background: white;
+            color: #800019;
+            padding: 20px 25px;
+            border-radius: 8px;
+            text-align: center;
+            font-weight: 600;
+            font-size: 30px;
+            width: 260px;
+            margin: 20px auto 40px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.12);
+            border: 1px solid #e0e0e0;
+        }
+
+        .scorecard-label {
+            font-size: 16px;
+            opacity: 0.8;
+            font-weight: 400;
+            margin-top: 8px;
+        }
+
+        /* PIE CHART GRID */
+        .chart-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 20px;
+            margin-top: 25px;
+        }
+
+        /* EXPERIENCE KPI GRID */
+        .experience-kpi-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 25px;
+            margin-top: 40px;
+        }
+
+        .kpi-card {
+            background: white;
+            padding: 25px;
+            text-align: center;
+            border-radius: 10px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .kpi-title {
+            font-size: 18px;
+            color: #800019;
+            font-weight: 600;
+        }
+
+        .kpi-value {
+            font-size: 48px;
+            color: #800019;
+            font-weight: 700;
+            margin: 10px 0;
+        }
+
+        .kpi-sub {
+            font-size: 18px;
+            opacity: 0.85;
+        }
+
+        /* TWO CHART GRID */
+        .two-chart-grid {
+            display: grid;
+            grid-template-columns: 0.40fr 0.60fr;
+            gap: 25px;
+            margin-top: 40px;
+        }
+
+        iframe {
+            width: 100%;
+            border: none;
+        }
+
+        /* OVERALL SECTION */
+        .overall-row3 {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+            margin-top: 35px;
+        }
+
+        .overall-row2 {
+            display: grid;
+            grid-template-columns: 0.41fr 0.59fr;
+            gap: 25px;
+            margin-top: 35px;
+        }
+
+        .overall-full {
+            margin-top: 35px;
+        }
+
+        /* HOWEVER SECTION */
+        .however-row1 {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+            margin-top: 40px;
+        }
+
+        .however-row2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 25px;
+            margin-top: 35px;
+        }
+
+        .stats-box {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+            color: #800019;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .stats-box ul {
+            padding-left: 20px;
+            margin: 0;
+        }
+
+        .stats-box li {
+            font-size: 20px;
+            line-height: 1.4;
+            margin-bottom: 12px;
+        }
+
+        .other-sources-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+            margin-top: 35px;
+        }
+
+    .chart-selector {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 6px;
+}
+
+.chart-selector select {
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    padding: 4px 8px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+}
+
+.logo-row {
+    display: flex;
+    align-items: center;       /* vertical alignment */
+    justify-content: center;   /* center the pair */
+    gap: 30px;                 /* space between logos */
+    margin-bottom: 15px;
+}
+
+.logo-row img {
+    height: 70px;              /* uniform visual height */
+    width: auto;               /* preserve aspect ratio */
+    object-fit: contain;
+}
+
+/* Optional: slightly emphasize the main logo */
+.logo-main {
+    height: 80px;
+}
+
+        
+    </style>
+</head>
+
+<body>
+    
+<header>
+    <div class="logo-row">
+        <!-- LEFT LOGO -->
+        <img src="https://www.dropbox.com/scl/fi/e9slrnwplb2w3gdiohcni/Jeevika_logo.jpg?rlkey=0ncplep5u1krxnx1hmsz9uzna&raw=1"
+             alt="Partner Logo"
+             class="logo-small">
+
+        <!-- RIGHT LOGO (existing GRAMA logo) -->
+        <img src="https://www.dropbox.com/scl/fi/zz9ekvqiqt9x3wdqwg0eh/Logo_1.jpg?rlkey=muoy3lvw5oephgf83t54rsfsn&raw=1"
+             alt="GRAMA Logo"
+             class="logo-main">
+    </div>
+
+    <h1>Data Dashboard – Financial Inclusion</h1>
+    <p>Survey of Jeevika Beneficiaries</p>
+</header>
+
+
+<div class="container">
+
+    <!-- TOP KPI -->
+    <div class="chart-selector" style="justify-content:center; margin-bottom:10px;">
+    <select id="sampleSizeSelect">
+        <option value="full_sample">Full sample</option>
+        <option value="Member">Member</option>
+        <option value="President">President</option>
+        <option value="Secretary">Secretary</option>
+        <option value="Treasurer">Treasurer</option>
+    </select>
+     </div>
+    
+    <div class="scorecard">
+        <span id="total-respondents">414</span>
+        <div class="scorecard-label">Total Respondents Surveyed</div>
+    </div>
+
+
+    <!-- MAP -->
+    <div class="chart-card">
+            <div class="chart-selector">
+                <select onchange="changeChart(this, 'respondents_district')">
+                    <option value="https://datawrapper.dwcdn.net/HC2rl/5/">Full sample</option>
+                    <option value="https://datawrapper.dwcdn.net/pFAXB/1/">Member</option>
+                    <option value="https://datawrapper.dwcdn.net/TBFSA/1/">President</option>
+                    <option value="https://datawrapper.dwcdn.net/5h5oK/1/">Secretary</option>
+                    <option value="https://datawrapper.dwcdn.net/rZ36U/1/">Treasurer</option>
+                </select>
+            </div>
+
+            <h3>Respondents by District</h3>
+
+            <iframe
+                scrolling="no"
+                id="respondents_district"
+                src="https://datawrapper.dwcdn.net/HC2rl/5/"
+                height="380">
+            </iframe>
+    </div>
+
+    <!-- RESPONDENT CHARACTERISTICS -->
+    <h2>Respondent Characteristics</h2>
+
+    <div class="chart-grid">
+        <div class="chart-card">
+            <div class="chart-selector">
+                <select onchange="changeChart(this, 'income_source')">
+                    <option value="https://datawrapper.dwcdn.net/1Dc9F/4/">Full sample</option>
+                    <option value="https://datawrapper.dwcdn.net/Zap7G/1/">Member</option>
+                    <option value="https://datawrapper.dwcdn.net/8pWgZ/1/">President</option>
+                    <option value="https://datawrapper.dwcdn.net/gNtAx/1/">Secretary</option>
+                    <option value="https://datawrapper.dwcdn.net/fy09A/1/">Treasurer</option>
+                </select>
+            </div>
+
+            <h3>Income Source</h3>
+
+            <iframe
+                scrolling="no"
+                id="income_source"
+                src="https://datawrapper.dwcdn.net/1Dc9F/4/"
+                height="380">
+            </iframe>
+        </div>
+
+        <div class="chart-card">
+            <div class="chart-selector">
+                <select onchange="changeChart(this, 'education')">
+                    <option value="https://datawrapper.dwcdn.net/f6O2L/2/">Full sample</option>
+                    <option value="https://datawrapper.dwcdn.net/6n4G9/1/">Member</option>
+                    <option value="https://datawrapper.dwcdn.net/4c5i8/1/">President</option>
+                    <option value="https://datawrapper.dwcdn.net/d2W4r/1/">Secretary</option>
+                    <option value="https://datawrapper.dwcdn.net/AUpgD/1/">Treasurer</option>
+                </select>
+            </div>
+
+            <h3>Education Level</h3>
+
+            <iframe
+                scrolling="no"
+                id="education"
+                src="https://datawrapper.dwcdn.net/f6O2L/2/"
+                height="380">
+            </iframe>
+            
+        </div>
+
+        <div class="chart-card">
+                <div class="chart-selector">
+                <select onchange="changeChart(this, 'religion')">
+                    <option value="https://datawrapper.dwcdn.net/3pQdT/3/">Full sample</option>
+                    <option value="https://datawrapper.dwcdn.net/WIk5J/1/">Member</option>
+                    <option value="https://datawrapper.dwcdn.net/Z0LH9/1/">President</option>
+                    <option value="https://datawrapper.dwcdn.net/1J9aZ/1/">Secretary</option>
+                    <option value="https://datawrapper.dwcdn.net/yiAP0/1/">Treasurer</option>
+                </select>
+            </div>
+
+            <h3>Religion</h3>
+
+            <iframe
+                scrolling="no"
+                id="religion"
+                src="https://datawrapper.dwcdn.net/3pQdT/3/"
+                height="380">
+            </iframe>
+            
+        </div>
+
+        <div class="chart-card">
+                <div class="chart-selector">
+                <select onchange="changeChart(this, 'caste')">
+                    <option value="https://datawrapper.dwcdn.net/Fm16H/3/">Full sample</option>
+                    <option value="https://datawrapper.dwcdn.net/Kjjas/1/">Member</option>
+                    <option value="https://datawrapper.dwcdn.net/GCsIZ/1/">President</option>
+                    <option value="https://datawrapper.dwcdn.net/KUzOf/1/">Secretary</option>
+                    <option value="https://datawrapper.dwcdn.net/9s9de/2/">Treasurer</option>
+                </select>
+            </div>
+
+            <h3>Caste</h3>
+
+            <iframe
+                scrolling="no"
+                id="caste"
+                src="https://datawrapper.dwcdn.net/Fm16H/3/"
+                height="380">
+            </iframe>
+        </div>
+
+        <div class="chart-card">
+                <div class="chart-selector">
+                <select onchange="changeChart(this, 'membership_status')">
+                    <option value="https://datawrapper.dwcdn.net/DHMgq/3/">Full sample</option>
+                    <option value="https://datawrapper.dwcdn.net/RpEgv/1/">Member</option>
+                    <option value="https://datawrapper.dwcdn.net/ZhXqL/1/">President</option>
+                    <option value="https://datawrapper.dwcdn.net/Ii1oH/1/">Secretary</option>
+                    <option value="https://datawrapper.dwcdn.net/kO1if/1/">Treasurer</option>
+                </select>
+            </div>
+
+            <h3>Membership Status</h3>
+
+            <iframe
+                scrolling="no"
+                id="membership_status"
+                src="https://datawrapper.dwcdn.net/DHMgq/3/"
+                height="380">
+            </iframe>
+        </div>
+    </div>
+
+    <!-- EXPERIENCE -->
+    <h2>Experience of a Jeevika SHG Member</h2>
+
+    <div class="chart-selector" style="justify-content:flex-start; margin-bottom:15px;">
+    <select id="shgRoleSelect">
+        <option value="full_sample">Full sample</option>
+        <option value="Member">Member</option>
+        <option value="President">President</option>
+        <option value="Secretary">Secretary</option>
+        <option value="Treasurer">Treasurer</option>
+    </select>
+        </div>
+
+    <div class="experience-kpi-grid">
+        <div class="kpi-card">
+            <div class="kpi-title">Mean Loans Taken</div>
+            <div class="kpi-value" id="kpi-mean-loans-value">2.04</div>
+            <div class="kpi-sub" id="kpi-mean-loans-median">Median: 2</div>
+            <div class="kpi-sub" id="kpi-mean-loans-range">Range: 1–10</div>
+        </div>
+
+
+        <div class="kpi-card">
+            <div class="kpi-title">Mean Delivery Time (Days)</div>
+            <div class="kpi-value" id="kpi-delivery-value">19.8</div>
+            <div class="kpi-sub" id="kpi-delivery-median">Median: 10</div>
+            <div class="kpi-sub" id="kpi-delivery-range">Range: 0–180</div>
+        </div>
+
+
+        <div class="kpi-card">
+            <div class="kpi-title">Mean Membership Years</div>
+            <div class="kpi-value" id="kpi-membership-value">7.06</div>
+            <div class="kpi-sub" id="kpi-membership-median">Median: 7</div>
+            <div class="kpi-sub" id="kpi-membership-range">Range: 0–19</div>
+        </div>
+
+
+        <div class="kpi-card">
+            <div class="kpi-title">Mean Loan Amount (₹)</div>
+            <div class="kpi-value" id="kpi-loanamt-value">37,659</div>
+            <div class="kpi-sub" id="kpi-loanamt-median">Median: 30,000</div>
+            <div class="kpi-sub" id="kpi-loanamt-range">Range: 1,000–2,00,000</div>
+        </div>
+
+    </div>
+
+    <!-- TWO CHARTS -->
+    <div class="two-chart-grid">
+        <!-- LOAN EVER TAKEN -->
+        <div class="chart-card">
+          <div class="chart-selector">
+        <select onchange="changeChart(this, 'helpful_jeevika_chart')">
+            <option value="https://datawrapper.dwcdn.net/Hd8sK/4/">Full sample</option>
+            <option value="https://datawrapper.dwcdn.net/jyRhL/1/">Member</option>
+            <option value="https://datawrapper.dwcdn.net/o1TyQ/2/">President</option>
+            <option value="https://datawrapper.dwcdn.net/oKNzi/1/">Secretary</option>
+            <option value="https://datawrapper.dwcdn.net/tPmVU/1/">Treasurer</option>
+        </select>
+    </div>
+
+    <h3>Have you ever taken a loan from your Jeevika Samooh?</h3>
+
+    <iframe
+        scrolling="no"
+        id="helpful_jeevika_chart"
+        src="https://datawrapper.dwcdn.net/Hd8sK/4/"
+        height="380">
+    </iframe>
+            
+        </div>  
+    <!-- LOAN USE -->
+        <div class="chart-card">
+            
+        <div class="chart-selector">
+        <select onchange="changeChart(this, 'loan_use')">
+            <option value="https://datawrapper.dwcdn.net/irQy6/7/">Full sample</option>
+            <option value="https://datawrapper.dwcdn.net/OCUwz/1/">Member</option>
+            <option value="https://datawrapper.dwcdn.net/G3fd8/1/">President</option>
+            <option value="https://datawrapper.dwcdn.net/XR2iB/1/">Secretary</option>
+            <option value="https://datawrapper.dwcdn.net/J7nXB/1/">Treasurer</option>
+        </select>
+    </div>
+
+    <h3>How did you use the loan amount?</h3>
+
+    <iframe
+        scrolling="no"
+        id="loan_use"
+        src="https://datawrapper.dwcdn.net/irQy6/7/"
+        height="380">
+    </iframe>
+
+        
+        </div>
+    </div>
+
+    <!-- OVERALL -->
+    <h2>Overall:</h2>
+
+    <div class="overall-row3">
+        <div class="chart-card">
+         <div class="chart-selector">
+        <select onchange="changeChart(this, 'jeevika_rating')">
+            <option value="https://datawrapper.dwcdn.net/19928/5/">Full sample</option>
+            <option value="https://datawrapper.dwcdn.net/9oDNv/1/">Member</option>
+            <option value="https://datawrapper.dwcdn.net/8BNcG/1/">President</option>
+            <option value="https://datawrapper.dwcdn.net/LOCAz/1/">Secretary</option>
+            <option value="https://datawrapper.dwcdn.net/OCnKO/1/">Treasurer</option>
+        </select>
+        </div>
+
+        <h3>How helpful has Jeevika been in your life?</h3>
+
+        <iframe
+        scrolling="no"
+        id="jeevika_rating"
+        src="https://datawrapper.dwcdn.net/19928/5/"
+        height="380">
+        </iframe>
+        </div>
+
+        <div class="chart-card">
+            <div class="chart-selector">
+        <select onchange="changeChart(this, 'loan_satisfaction')">
+            <option value="https://datawrapper.dwcdn.net/aa1py/4/">Full sample</option>
+            <option value="https://datawrapper.dwcdn.net/XTv59/1/">Member</option>
+            <option value="https://datawrapper.dwcdn.net/qkmPR/1/">President</option>
+            <option value="https://datawrapper.dwcdn.net/yHVc8/1/">Secretary</option>
+            <option value="https://datawrapper.dwcdn.net/jIUF7/1/">Treasurer</option>
+        </select>
+        </div>
+
+        <h3>Are you satisfied with the loan amount?</h3>
+
+        <iframe
+        scrolling="no"
+        id="loan_satisfaction"
+        src="https://datawrapper.dwcdn.net/aa1py/4/"
+        height="380">
+        </iframe>
+        </div>
+
+        <div class="chart-card">
+         <div class="chart-selector">
+        <select onchange="changeChart(this, 'cm_rating')">
+            <option value="https://datawrapper.dwcdn.net/9R3Xo/3/">Full sample</option>
+            <option value="https://datawrapper.dwcdn.net/22koV/1/">Member</option>
+            <option value="https://datawrapper.dwcdn.net/KWjOx/1/">President</option>
+            <option value="https://datawrapper.dwcdn.net/kMSX3/1/">Secretary</option>
+            <option value="https://datawrapper.dwcdn.net/0ayrF/1/">Treasurer</option>
+        </select>
+        </div>
+
+        <h3>How would you rate your CM didi?</h3>
+
+        <iframe
+        scrolling="no"
+        id="cm_rating"
+        src="https://datawrapper.dwcdn.net/9R3Xo/3/"
+        height="380">
+        </iframe> 
+        </div>
+    </div>
+
+    <div class="overall-row2">
+        <div class="chart-card">
+              <div class="chart-selector">
+                <select onchange="changeChart(this, 'loan_source_easy_which')">
+                    <option value="https://datawrapper.dwcdn.net/2waox/1/">Full sample</option>
+                    <option value="https://datawrapper.dwcdn.net/f2ua8/1/">Member</option>
+                    <option value="https://datawrapper.dwcdn.net/07Jp9/1/">President</option>
+                    <option value="https://datawrapper.dwcdn.net/xikIC/1/">Secretary</option>
+                    <option value="https://datawrapper.dwcdn.net/XCAoW/1/">Treasurer</option>
+                </select>
+            </div>
+
+            <h3>From which source was the loan easier to get?</h3>
+
+            <iframe
+                scrolling="no"
+                id="loan_source_easy_which"
+                src="https://datawrapper.dwcdn.net/2waox/1/"
+                height="380">
+            </iframe>
+        </div>
+
+        <div class="chart-card">
+              <div class="chart-selector">
+                <select onchange="changeChart(this, 'inc_increase_jeevika')">
+                    <option value="https://datawrapper.dwcdn.net/0N2px/8/">Full sample</option>
+                    <option value="https://datawrapper.dwcdn.net/kCsAd/1/">Member</option>
+                    <option value="https://datawrapper.dwcdn.net/M7ElZ/1/">President</option>
+                    <option value="https://datawrapper.dwcdn.net/LBYMF/1/">Secretary</option>
+                    <option value="https://datawrapper.dwcdn.net/LupMt/1/">Treasurer</option>
+                </select>
+            </div>
+
+            <h3>How has your income increased through Jeevika?</h3>
+
+            <iframe
+                scrolling="no"
+                id="inc_increase_jeevika"
+                src="https://datawrapper.dwcdn.net/0N2px/8/"
+                height="380">
+            </iframe>            
+        </div>
+    </div>
+
+    <div class="chart-card overall-full">
+        <div class="chart-selector">
+        <select onchange="changeChart(this, 'rel_leaders')">
+            <option value="https://datawrapper.dwcdn.net/P3cjo/2/">Full sample</option>
+            <option value="https://datawrapper.dwcdn.net/MP5fw/1/">Member</option>
+            <option value="https://datawrapper.dwcdn.net/o9D2G/1/">President</option>
+            <option value="https://datawrapper.dwcdn.net/5GcZp/1/">Secretary</option>
+            <option value="https://datawrapper.dwcdn.net/kTubA/1/">Treasurer</option>
+        </select>
+        </div>
+
+        <h3>Relationship with the Samooh leadership</h3>
+
+        <iframe
+        scrolling="no"
+        id="rel_leaders"
+        src="https://datawrapper.dwcdn.net/P3cjo/2/"
+        height="380">
+        </iframe>
+    </div>
+
+    <!-- HOWEVER -->
+    <h2>However:</h2>
+
+    <div class="however-row1">
+        <div class="chart-card">
+          <div class="chart-selector">
+        <select onchange="changeChart(this, 'jeevika_spending')">
+            <option value="https://datawrapper.dwcdn.net/VEvQp/4/">Full sample</option>
+            <option value="https://datawrapper.dwcdn.net/q8cbG/1/">Member</option>
+            <option value="https://datawrapper.dwcdn.net/qRyAg/1/">President</option>
+            <option value="https://datawrapper.dwcdn.net/yKiXn/1/">Secretary</option>
+            <option value="https://datawrapper.dwcdn.net/UWtc0/1/">Treasurer</option>
+        </select>
+        </div>
+
+        <h3>Where should Jeevika focus more spending?</h3>
+
+        <iframe
+        scrolling="no"
+        id="jeevika_spending"
+        src="https://datawrapper.dwcdn.net/VEvQp/4/"
+        height="380">
+        </iframe>
+        </div>
+
+        <div class="chart-card">
+            <div class="chart-selector">
+        <select onchange="changeChart(this, 'jeevika_training')">
+            <option value="https://datawrapper.dwcdn.net/SQtb4/3/">Full sample</option>
+            <option value="https://datawrapper.dwcdn.net/tKQiY/2/">Member</option>
+            <option value="https://datawrapper.dwcdn.net/grMlE/1/">President</option>
+            <option value="https://datawrapper.dwcdn.net/OS5Sj/1/">Secretary</option>
+            <option value="https://datawrapper.dwcdn.net/zqwbF/2/">Treasurer</option>
+        </select>
+        </div>
+
+        <h3>Do you want Jeevika to provide training?</h3>
+
+        <iframe
+        scrolling="no"
+        id="jeevika_training"
+        src="https://datawrapper.dwcdn.net/SQtb4/3/"
+        height="380">
+        </iframe>
+        </div>
+
+        <div class="chart-card">
+            <div class="chart-selector">
+        <select onchange="changeChart(this, 'jeevika_improve')">
+            <option value="https://datawrapper.dwcdn.net/wfX5T/3/">Full sample</option>
+            <option value="https://datawrapper.dwcdn.net/qP7IP/1/">Member</option>
+            <option value="https://datawrapper.dwcdn.net/siiKw/1/">President</option>
+            <option value="https://datawrapper.dwcdn.net/3ABUI/1/">Secretary</option>
+            <option value="https://datawrapper.dwcdn.net/FIyeY/1/">Treasurer</option>
+        </select>
+        </div>
+
+        <h3>Where can Jeevika improve?</h3>
+
+        <iframe
+        scrolling="no"
+        id="jeevika_improve"
+        src="https://datawrapper.dwcdn.net/wfX5T/3/"
+        height="380">
+        </iframe>
+        </div>
+    </div>
+
+    <div class="however-row2">
+        <div class="chart-card">
+        <div class="chart-selector">
+        <select onchange="changeChart(this, 'shg_influence')">
+            <option value="https://datawrapper.dwcdn.net/0m1Ud/2/">Full sample</option>
+            <option value="https://datawrapper.dwcdn.net/zksGk/1/">Member</option>
+            <option value="https://datawrapper.dwcdn.net/7aP3q/1/">President</option>
+            <option value="https://datawrapper.dwcdn.net/9G3vk/2/">Secretary</option>
+            <option value="https://datawrapper.dwcdn.net/7UfjX/1/">Treasurer</option>
+        </select>
+        </div>
+
+        <h3>Who has more influence in the Samooh?</h3>
+
+        <iframe
+        scrolling="no"
+        id="shg_influence"
+        src="https://datawrapper.dwcdn.net/0m1Ud/2/"
+        height="380">
+        </iframe>
+        </div>
+
+        <div class="stats-box">
+            <ul>
+                <li><strong>84%</strong> say leadership has <strong>never changed</strong></li>
+                <li><strong>21 of 44</strong> leaders belong to the <strong>same jaati</strong></li>
+            </ul>
+        </div>
+
+        <div class="chart-card">
+         <div class="chart-selector">
+        <select onchange="changeChart(this, 'weekly_deposit_inc')">
+            <option value="https://datawrapper.dwcdn.net/eJW7g/3/">Full sample</option>
+            <option value="https://datawrapper.dwcdn.net/1TD5M/1/">Member</option>
+            <option value="https://datawrapper.dwcdn.net/Eo3oG/1/">President</option>
+            <option value="https://datawrapper.dwcdn.net/cJYi7/1/">Secretary</option>
+            <option value="https://datawrapper.dwcdn.net/lg2Iv/1/">Treasurer</option>
+        </select>
+        </div>
+
+        <h3>Desired increase in weekly deposit</h3>
+
+        <iframe
+        scrolling="no"
+        id="weekly_deposit_inc"
+        src="https://datawrapper.dwcdn.net/eJW7g/3/"
+        height="380">
+        </iframe>
+        </div>
+    </div>
+
+    <!-- OTHER SOURCES -->
+    <h2>Why take loan from other sources? (31% state having taken a loan from another source)</h2>
+
+    <div class="other-sources-row">
+        <div class="chart-card">
+         <div class="chart-selector">
+        <select onchange="changeChart(this, 'bank_why')">
+            <option value="https://datawrapper.dwcdn.net/A02aZ/6/">Full sample</option>
+            <option value="https://datawrapper.dwcdn.net/cXoZL/1/">Member</option>
+            <option value="https://datawrapper.dwcdn.net/aB3XH/1/">President</option>
+            <option value="https://datawrapper.dwcdn.net/kcHjO/2/">Secretary</option>
+            <option value="https://datawrapper.dwcdn.net/tMXIh/2/">Treasurer</option>
+        </select>
+        </div>
+
+        <h3>Why choose bank over Jeevika?</h3>
+
+        <iframe
+        scrolling="no"
+        id="bank_why"
+        src="https://datawrapper.dwcdn.net/A02aZ/6/"
+        height="380">
+        </iframe>
+        </div>
+
+        <div class="chart-card">
+          <div class="chart-selector">
+        <select onchange="changeChart(this, 'othersor_why')">
+            <option value="https://datawrapper.dwcdn.net/dSZNf/6/">Full sample</option>
+            <option value="https://datawrapper.dwcdn.net/nAAm5/2/">Member</option>
+            <option value="https://datawrapper.dwcdn.net/wpGMA/2/">President</option>
+            <option value="https://datawrapper.dwcdn.net/iL0Hi/2/">Secretary</option>
+            <option value="https://datawrapper.dwcdn.net/zI2oc/2/">Treasurer</option>
+        </select>
+        </div>
+
+        <h3>Why was the other source easier?</h3>
+
+        <iframe
+        scrolling="no"
+        id="othersor_why"
+        src="https://datawrapper.dwcdn.net/dSZNf/6/"
+        height="380">
+        </iframe>
+        </div>
+    </div>
+
+</div>
+
+<!-- DATAWRAPPER AUTO RESIZE -->
+<script>
+    window.addEventListener("message", event => {
+        if (event.data["datawrapper-height"]) {
+            document.querySelectorAll("iframe").forEach(iframe => {
+                if (iframe.contentWindow === event.source) {
+                    iframe.style.height =
+                        Object.values(event.data["datawrapper-height"])[0] + "px";
+                }
+            });
+        }
+    });
+</script>
+
+<script>
+function changeChart(selectEl, iframeId) {
+    const iframe = document.getElementById(iframeId);
+    if (!iframe) return;
+
+    iframe.src = selectEl.value;
+}
+</script>
+
+    <script>
+let kpiData = {};
+
+fetch("shg_role_summary.json")
+    .then(response => response.json())
+        .then(data => {
+            kpiData = data;
+            updateKPIs("full_sample");
+            updateSampleSize("full_sample");
+            })
+    .catch(err => console.error("Failed to load KPI JSON:", err));
+</script>
+
+    <script>
+function updateKPIs(role) {
+    const d = kpiData[role];
+    if (!d) return;
+
+  
+    // Mean loans
+    document.getElementById("kpi-mean-loans-value").textContent  = d.mean_loans.value;
+    document.getElementById("kpi-mean-loans-median").textContent = "Median: " + d.mean_loans.median;
+    document.getElementById("kpi-mean-loans-range").textContent  = "Range: "  + d.mean_loans.range;
+
+    // Delivery time
+    document.getElementById("kpi-delivery-value").textContent  = d.delivery_time.value;
+    document.getElementById("kpi-delivery-median").textContent = "Median: " + d.delivery_time.median;
+    document.getElementById("kpi-delivery-range").textContent  = "Range: "  + d.delivery_time.range;
+
+    // Membership years
+    document.getElementById("kpi-membership-value").textContent  = d.membership_years.value;
+    document.getElementById("kpi-membership-median").textContent = "Median: " + d.membership_years.median;
+    document.getElementById("kpi-membership-range").textContent  = "Range: "  + d.membership_years.range;
+
+    // Loan amount (₹ formatting optional later)
+    document.getElementById("kpi-loanamt-value").textContent  = d.loan_amount.value;
+    document.getElementById("kpi-loanamt-median").textContent = "Median: " + d.loan_amount.median;
+    document.getElementById("kpi-loanamt-range").textContent  = "Range: "  + d.loan_amount.range;
+}
+     </script>
+
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+    const roleSelect = document.getElementById("shgRoleSelect");
+    if (!roleSelect) return;
+
+    roleSelect.addEventListener("change", function () {
+        updateKPIs(this.value);
+    });
+    });
+  </script>
+
+<script>
+function updateSampleSize(role) {
+    const d = kpiData[role];
+    if (!d) return;
+
+    document.getElementById("total-respondents").textContent = d.n;
+}
+</script>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const sampleSelect = document.getElementById("sampleSizeSelect");
+    if (!sampleSelect) return;
+
+    sampleSelect.addEventListener("change", function () {
+        updateSampleSize(this.value);
+    });
+});
+</script>
+
+
+
+
+</body>
+</html>
